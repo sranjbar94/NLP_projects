@@ -26,8 +26,11 @@ Each project is developed using **publicly available datasets** and includes cod
 ---
 
 beginner-nlp-projects/
+
 │
+
 ├── README.md
+
 ├── requirements.txt
 ├── .gitignore
 │
