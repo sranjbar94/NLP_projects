@@ -25,6 +25,39 @@ Each project is developed using **publicly available datasets** and includes cod
 
 ---
 
+beginner-nlp-projects/
+│
+├── README.md
+├── requirements.txt
+├── .gitignore
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── notebooks/
+│   ├── sentiment_analysis.ipynb
+│   ├── spam_detection.ipynb
+│   └── text_classification.ipynb
+│
+├── src/
+│   ├── data_preprocessing.py
+│   ├── feature_engineering.py
+│   ├── train_model.py
+│   └── evaluate_model.py
+│
+├── models/
+│   └── saved_models/
+│
+├── results/
+│   ├── figures/
+│   └── metrics/
+│
+└── docs/
+    └── project_notes.md
+    
+---
+
 # Project 1: Sentiment Analysis
 
 The goal of this project is to classify text based on sentiment, such as:
