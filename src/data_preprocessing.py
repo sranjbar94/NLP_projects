@@ -9,7 +9,6 @@ nltk.download("stopwords")
 
 stop_words = set(stopwords.words("english"))
 
-
 def clean_text(text):
     # convert to lowercase
     text = text.lower()
