@@ -3,11 +3,9 @@
 import os
 import matplotlib.pyplot as plt
 import seaborn as sns
-
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
-
 
 def evaluate_model(model, X_test, y_test, model_name="model"):
 
