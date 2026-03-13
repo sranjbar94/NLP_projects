@@ -3,7 +3,6 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 
-
 def train_logistic_regression(X_train, y_train):
 
     # initialize model
