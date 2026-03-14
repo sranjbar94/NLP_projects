@@ -1,63 +1,128 @@
 # run_sentiment_analysis.py
 # Complete Sentiment Analysis pipeline
-# Uses src/ modules and saves confusion matrix to results/figures/
 
 import os
+import sys
 import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
 
+# -------------------------
+# Project Paths
+# -------------------------
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+DATA_PATH = os.path.join(BASE_DIR, "data", "raw", "imdb_reviews.csv")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "saved_models")
+FIGURES_PATH = os.path.join(BASE_DIR, "results", "figures")
+
+os.makedirs(MODEL_PATH, exist_ok=True)
+os.makedirs(FIGURES_PATH, exist_ok=True)
+
 # add src to path
-import sys
 sys.path.append(os.path.dirname(__file__))
+
+# -------------------------
+# Import project modules
+# -------------------------
 
 from data_preprocessing import clean_text
 from feature_engineering import create_tfidf
 from train_model import train_logistic_regression
 from evaluate_model import evaluate_model
 
-# --- Paths ---
-DATA_PATH = "/Users/bob/Documents/GitHub/NLP_LLM_RAG/NLP_projects/data/raw/"
-MODEL_PATH = "../NLP_projects/models/saved_models/"
-FIGURES_PATH = "../NLP_projects/results/figures/"
+# -------------------------
+# Load Dataset
+# -------------------------
 
-os.makedirs(MODEL_PATH, exist_ok=True)
-os.makedirs(FIGURES_PATH, exist_ok=True)
+print("Loading dataset...")
 
-# --- Load Dataset ---
-df = pd.read_csv(DATA_PATH + "imdb_reviews.csv")
+df = pd.read_csv(DATA_PATH)
 
-# --- Clean Text ---
+# -------------------------
+# Clean Text
+# -------------------------
+
+print("Cleaning text...")
+
 df["clean_review"] = df["review"].apply(clean_text)
 
-# --- Split Dataset ---
+# -------------------------
+# Train/Test Split
+# -------------------------
+
+print("Splitting dataset...")
+
 X_train, X_test, y_train, y_test = train_test_split(
     df["clean_review"],
     df["sentiment"],
     test_size=0.2,
-    random_state=42
+    random_state=42,
+    stratify=df["sentiment"]
 )
 
-# --- Feature Engineering ---
-X_train_vec, X_test_vec, vectorizer = create_tfidf(X_train, X_test, max_features=5000)
+# -------------------------
+# Feature Engineering
+# -------------------------
 
-# --- Train Model ---
-model = train_logistic_regression(X_train_vec, y_train)
+print("Creating TF-IDF features...")
 
-# --- Evaluate Model ---
-acc, report, cm = evaluate_model(
+X_train_vec, X_test_vec, vectorizer = create_tfidf(
+    X_train,
+    X_test,
+    max_features=5000
+)
+
+# -------------------------
+# Train Model
+# -------------------------
+
+print("Training Logistic Regression model...")
+
+model = train_logistic_regression(
+    X_train_vec,
+    y_train
+)
+
+# -------------------------
+# Evaluate Model
+# -------------------------
+
+print("Evaluating model...")
+
+results = evaluate_model(
     model,
     X_test_vec,
     y_test,
     model_name="sentiment_model"
 )
 
-print("Accuracy:", acc)
-print(report)
+print("\n----- Model Performance -----")
 
-# --- Save Model and Vectorizer ---
-joblib.dump(model, MODEL_PATH + "sentiment_model.pkl")
-joblib.dump(vectorizer, MODEL_PATH + "tfidf_vectorizer.pkl")
+print("Accuracy:", results["accuracy"])
+print("F1 Score:", results["f1_score"])
+print("AUC:", results["auc"])
 
-print("Model and vectorizer saved successfully.")
-print(f"Confusion matrix saved to {FIGURES_PATH}sentiment_model_confusion_matrix.png")
+print("\nClassification Report:\n")
+print(results["classification_report"])
+
+# -------------------------
+# Save Model
+# -------------------------
+
+print("\nSaving model and vectorizer...")
+
+joblib.dump(
+    model,
+    os.path.join(MODEL_PATH, "sentiment_model.pkl")
+)
+
+joblib.dump(
+    vectorizer,
+    os.path.join(MODEL_PATH, "tfidf_vectorizer.pkl")
+)
+
+print("\nModel and vectorizer saved successfully.")
+
+print(f"\nFigures saved in: {FIGURES_PATH}")
