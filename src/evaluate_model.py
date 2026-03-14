@@ -27,7 +27,7 @@ def evaluate_model(model, X_test, y_test, model_name="model"):
 
     # metrics
     acc = accuracy_score(y_test, predictions)
-    f1 = f1_score(y_test, predictions)
+    f1 = f1_score(y_test, predictions, average="binary", pos_label="positive")
 
     report = classification_report(y_test, predictions)
 
