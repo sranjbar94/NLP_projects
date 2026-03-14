@@ -18,8 +18,8 @@ from evaluate_model import evaluate_model
 
 # --- Paths ---
 DATA_PATH = "/Users/bob/Documents/GitHub/NLP_LLM_RAG/NLP_projects/data/raw/"
-MODEL_PATH = "../models/saved_models/"
-FIGURES_PATH = "../results/figures/"
+MODEL_PATH = "../NLP_projects/models/saved_models/"
+FIGURES_PATH = "../NLP_projects/results/figures/"
 
 os.makedirs(MODEL_PATH, exist_ok=True)
 os.makedirs(FIGURES_PATH, exist_ok=True)
