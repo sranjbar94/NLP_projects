@@ -62,7 +62,7 @@ def evaluate_model(model, X_test, y_test, model_name="model", positive_label="po
     # --------------------
     # Confusion Matrix
     # --------------------
-    plt.figure(figsize=(6, 5))
+    plt.figure(figsize=(5, 5))
 
     sns.heatmap(
         cm,
@@ -94,7 +94,7 @@ def evaluate_model(model, X_test, y_test, model_name="model", positive_label="po
             probs
         )
 
-        plt.figure(figsize=(6, 5))
+        plt.figure(figsize=(5, 5))
 
         plt.plot(
             fpr,
