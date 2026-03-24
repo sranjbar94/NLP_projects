@@ -88,7 +88,7 @@ def evaluate_model_multiclass(model, X_test, y_test, model_name="model", fig_dir
     import pandas as pd
     df_compare = pd.DataFrame({"true": y_test, "pred": predictions})
     df_compare.groupby("true")["pred"].value_counts().unstack().plot(
-        kind="bar", stacked=True, figsize=(10,6)
+        kind="bar", stacked=True, figsize=(10,5)
     )
     plt.title(f"Predicted vs True Labels - {model_name}")
     plt.ylabel("Number of samples")
