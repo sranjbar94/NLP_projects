@@ -104,8 +104,8 @@ def evaluate_model(model, X_test, y_test, model_name="model", positive_label="po
 
         plt.plot([0, 1], [0, 1], "--")
 
-        plt.xlabel("False Positive Rate")
-        plt.ylabel("True Positive Rate")
+        plt.xlabel("False Positive")
+        plt.ylabel("True Positive")
         plt.title(f"ROC Curve - {model_name}")
 
         plt.legend()
