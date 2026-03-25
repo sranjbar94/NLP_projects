@@ -37,7 +37,7 @@ def evaluate_model(model, data_loader, device='cpu', label_encoder=None, model_n
     os.makedirs(fig_dir, exist_ok=True)
     plt.figure(figsize=(12,10))
     sns.heatmap(cm, annot=False, fmt="d", cmap="Blues")
-    plt.xlabel("Predicted")
+    plt.xlabel("Predict")
     plt.ylabel("Actual")
     plt.title(f"Confusion Matrix - {model_name}")
     plt.savefig(f"{fig_dir}/{model_name}_confusion_matrix.png")
