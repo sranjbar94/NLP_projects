@@ -35,7 +35,7 @@ def create_dataloaders(df, label_column='label', text_column='text', batch_size=
     df[label_column] = le.fit_transform(df[label_column])
     
     from sklearn.model_selection import train_test_split
-    train_df, val_df = train_test_split(df, test_size=0.2, random_state=42, stratify=df[label_column])
+    train_df, val_df = train_test_split(df, test_size=0.25, random_state=42, stratify=df[label_column])
     
     train_dataset = NewsDataset(train_df[text_column].tolist(), train_df[label_column].tolist(), max_len=max_len)
     val_dataset = NewsDataset(val_df[text_column].tolist(), val_df[label_column].tolist(), max_len=max_len)
