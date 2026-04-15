@@ -94,7 +94,7 @@ def evaluate_model(model, X_test, y_test, model_name="model", positive_label="po
             probs
         )
 
-        plt.figure(figsize=(5, 5))
+        plt.figure(figsize=(4, 4))
 
         plt.plot(
             fpr,
