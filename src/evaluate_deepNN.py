@@ -35,7 +35,7 @@ def evaluate_model(model, data_loader, device='cpu', label_encoder=None, model_n
     # Plot confusion matrix
     fig_dir = f"./results/figures"
     os.makedirs(fig_dir, exist_ok=True)
-    plt.figure(figsize=(12,10))
+    plt.figure(figsize=(11,10))
     sns.heatmap(cm, annot=False, fmt="d", cmap="Blues")
     plt.xlabel("Predict")
     plt.ylabel("Actual")
